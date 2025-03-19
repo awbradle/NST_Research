@@ -111,6 +111,7 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
     for layer in cnn.children(): 
         i += 1
         name = 'layer_{}'.format(i)
+        print(i, layer)
         if isinstance(layer, nn.ReLU):
             # The in-place version doesn't play very nicely with the ``ContentLoss``
             # and ``StyleLoss`` we insert below. So we replace with out-of-place
