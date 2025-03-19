@@ -111,7 +111,6 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
     for layer in cnn.children(): 
         i += 1
         name = 'layer_{}'.format(i)
-        print(i, layer)
         if isinstance(layer, nn.ReLU):
             # The in-place version doesn't play very nicely with the ``ContentLoss``
             # and ``StyleLoss`` we insert below. So we replace with out-of-place
@@ -141,7 +140,6 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
         if isinstance(model[i], ContentLoss) or isinstance(model[i], StyleLoss):
             break
     model = model[:(i + 1)]
-    #print(model) #Debug to check model after adding style and content loss layers
     return model, style_losses, content_losses
 
 def get_input_optimizer(input_img):
@@ -157,7 +155,6 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
     model, style_losses, content_losses = get_style_model_and_losses(cnn,
         normalization_mean, normalization_std, style_img, content_img,
         content_layers, style_layers)
-    print("info")
     # We want to optimize the input and not the model parameters so we
     # update all the requires_grad fields accordingly
     input_img.requires_grad_(True)
@@ -167,8 +164,6 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
     model.requires_grad_(False)
     
     optimizer = get_input_optimizer(input_img)
-
-    print('Optimizing..')
     run = [0]
     while run[0] <= num_steps:
 
