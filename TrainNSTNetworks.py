@@ -35,6 +35,12 @@ def image_loader(image_name):
     image = loader(image).unsqueeze(0)
     return image.to(device, torch.float)
 
+def setup_images(style, content):
+    style_img = image_loader(style)
+    content_img = image_loader(content)
+    input_img = content_img.clone()
+    return [style, content, input_image]
+
 class ContentLoss(nn.Module):
 
     def __init__(self, target,):
@@ -151,7 +157,6 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
                        content_img, style_img, input_img, content_layers, style_layers,
                        num_steps=200, style_weight=1000000, content_weight=1):
     """Run the style transfer."""
-    print('Building the style transfer model..')
     model, style_losses, content_losses = get_style_model_and_losses(cnn,
         normalization_mean, normalization_std, style_img, content_img,
         content_layers, style_layers)
@@ -189,11 +194,6 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
             loss.backward()
 
             run[0] += 1
-            if run[0] % 50 == 0:
-                print("run {}:".format(run))
-                print('Style Loss : {:4f} Content Loss: {:4f}'.format(
-                    style_score.item(), content_score.item()))
-
             return style_score + content_score
 
         optimizer.step(closure)
