@@ -18,9 +18,9 @@ def setup_GoogleNet():
     cnn_normalization_std = torch.tensor([0.229, 0.224, 0.225])
     content_layers = [3]
     style_layers = [3,7,10]
-    style_weight = 1000000
+    style_weight = 100000
     network_name = "GoogleNet"
-    iterations = 1000
+    iterations = 100
     return [cnn, cnn_normalization_mean, cnn_normalization_std, content_layers, style_layers, style_weight, network_name, iterations]
 
 squeezenet1_0(weights=SqueezeNet1_0_Weights.DEFAULT).features.eval()
@@ -28,11 +28,11 @@ def setup_SqueezeNet():
     cnn = squeezenet1_0(weights=SqueezeNet1_0_Weights.DEFAULT).features.eval()
     cnn_normalization_mean = torch.tensor([0.485, 0.456, 0.406])
     cnn_normalization_std = torch.tensor([0.229, 0.224, 0.225])
-    content_layers = [4]
-    style_layers = [4,5,6,8,9]
-    style_weight = 1000000
+    content_layers = [5]
+    style_layers = [4,5,6]
+    style_weight = 40000
     network_name = "SqueezeNet"
-    iterations = 1000
+    iterations = 100
     return [cnn, cnn_normalization_mean, cnn_normalization_std, content_layers, style_layers, style_weight, network_name, iterations]
 
 def setup_ResNet():
@@ -43,7 +43,7 @@ def setup_ResNet():
     style_layers = [5,6,7]
     style_weight = 400000
     network_name = "ResNet"
-    iterations = 300
+    iterations = 100
     return [cnn, cnn_normalization_mean, cnn_normalization_std, content_layers, style_layers, style_weight, network_name, iterations]
 
 def setup_VGG():
@@ -54,5 +54,5 @@ def setup_VGG():
     style_layers = [3,6,8,11]
     style_weight = 100000
     network_name = "VGG"
-    iterations = 1000
+    iterations = 100
     return [cnn, cnn_normalization_mean, cnn_normalization_std, content_layers, style_layers, style_weight, network_name, iterations]
