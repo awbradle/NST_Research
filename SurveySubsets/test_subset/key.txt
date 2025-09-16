@@ -1,0 +1,5 @@
+Densenet = 1
+GoogleNet = 2
+Resnet = 3
+Squeezenet = 4
+VGG = 5
