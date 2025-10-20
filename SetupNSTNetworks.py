@@ -9,7 +9,7 @@ def setup_DenseNet():
     style_layers = [5,7,9]
     style_weight = 800000000    
     network_name = "DenseNet"
-    iterations = 300
+    iterations = 100
     return [cnn, cnn_normalization_mean, cnn_normalization_std, content_layers, style_layers, style_weight, network_name, iterations]
 
 def setup_GoogleNet():
